@@ -1,5 +1,5 @@
 
-这是一个基于React+React-router+antd 的中后台管理方案,<br>
+这是一个基于React+React-router4+antd3 的中后台管理方案,<br>
 基于React+react-router+antd的中后台方案,开箱即用,零配置,维护一个json即可<br>
 1. Create-react-app 脚手架<br>
 2. 按需加载 react-loadable<br>
