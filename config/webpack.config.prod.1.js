@@ -56,12 +56,12 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
-  // entry: {
-  //   bundle : paths.appIndexJs, //__dirname + "/src/js/root.js",               //项目的入口文件
-  //   vendor: ['react','react-dom','react-router-dom'],  //你项目中的第三方库
-  //   antd: ['antd']   //你使用的第三方UI等
-  // },
+  //entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  entry: {
+    bundle : paths.appIndexJs, //__dirname + "/src/js/root.js",               //项目的入口文件
+    vendor: ['react','react-dom','react-router-dom'],  //你项目中的第三方库
+    antd: ['antd']   //你使用的第三方UI等
+  },
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -154,10 +154,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              // "plugins": [   //没有起作用啊?
-              //   ["import", [{"libraryName": "antd", "style": "css" }]],
-              //   ["syntax-dynamic-import"]
-              // ],
+              
               compact: true,
             },
           },
@@ -243,10 +240,10 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),  //普通优化
-    // new webpack.optimize.CommonsChunkPlugin({    //提取第三方文件和entry里对应，和上面的对应，这样打包出来的会把react全家桶打包成一个文件,  同时把elemnet打包成一个文件
-    //   name: ['vendor','antd'], 
-    //   //filename: 'static/js/vendor.bundle.js' 
-    // }),
+    new webpack.optimize.CommonsChunkPlugin({    //提取第三方文件和entry里对应，和上面的对应，这样打包出来的会把react全家桶打包成一个文件,  同时把elemnet打包成一个文件
+      name: ['vendor','antd'], 
+      //filename: 'static/js/vendor.bundle.js' 
+    }),
 
 
     // Makes some environment variables available in index.html.

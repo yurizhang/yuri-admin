@@ -1,13 +1,13 @@
 import React from "react"
 //import ReactDOM from "react-dom"
-import { HashRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Link } from "react-router-dom";
 import { Layout, Menu, Breadcrumb, Icon, Dropdown, Row, Col } from 'antd';
 import './admim.css';
 import { menus as menusList } from '../../constants/menuslist';  // 菜单数据 
 import Crouter from "../../routes/index";  //路由数据
 
 const { Header, Content, Footer, Sider } = Layout;
-const SubMenu = Menu.SubMenu;
+//const SubMenu = Menu.SubMenu;
 
 class SiderDemo extends React.Component {
   state = {
@@ -60,24 +60,24 @@ class SiderDemo extends React.Component {
 
   render() {
     let menu=this.menu();
-    const routes = [
-  {
-    path: "/admin",
-    exact: true,
-    sidebar: () => <div>home!</div>,
-    main: () => <h2>Home</h2>
-  },
-  {
-    path: "/admin/bubblegum",
-    sidebar: () => <div>bubblegum!</div>,
-    main: () => <h2>Bubblegum</h2>
-  },
-  {
-    path: "/admin/shoelaces",
-    sidebar: () => <div>shoelaces!</div>,
-    main: () => {return (<h2>Shoelaces2222</h2>)}
-  }
-];
+//     const routes = [
+//   {
+//     path: "/admin",
+//     exact: true,
+//     sidebar: () => <div>home!</div>,
+//     main: () => <h2>Home</h2>
+//   },
+//   {
+//     path: "/admin/bubblegum",
+//     sidebar: () => <div>bubblegum!</div>,
+//     main: () => <h2>Bubblegum</h2>
+//   },
+//   {
+//     path: "/admin/shoelaces",
+//     sidebar: () => <div>shoelaces!</div>,
+//     main: () => {return (<h2>Shoelaces2222</h2>)}
+//   }
+// ];
 
 const renderMenuItem =
     ({ key, title, icon, link, ...props }) =>
@@ -167,7 +167,7 @@ const renderSubMenu =
                 </Col>
                 <Col span={2}>
                     <Dropdown overlay={menu}>
-                        <a className="ant-dropdown-link" href="javascript:;">
+                        <a className="ant-dropdown-link">
                         Admin <Icon type="down" />
                         </a>
                     </Dropdown>

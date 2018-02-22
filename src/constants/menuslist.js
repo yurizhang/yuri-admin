@@ -18,7 +18,7 @@ export const menus = [
     {
         key: '/app/animation', title: '动画', icon: 'rocket',
         sub: [
-            { key: '/app/animation/basicAnimations', title: '基础动画', icon: '', },
+            { key: '/app/ui/testsize', title: '基础动画', icon: '', },
             { key: '/app/animation/exampleAnimations', title: '动画案例', icon: '', },
         ],
     },

@@ -6,15 +6,14 @@ import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
-import BasicForm from '../components/forms/BasicForm';
+//import BasicForm from '../components/forms/BasicForm';
 
-
-import Icons from '../components/ui/Icons';
-import Buttons from '../components/ui/Buttons';
+//import Icons from '../components/ui/Icons';
+//import Buttons from '../components/ui/Buttons';
 //import Spins from '../components/ui/Spins';
-import Modals from '../components/ui/Modals';
-import Notifications from '../components/ui/Notifications';
-import Tabs from '../components/ui/Tabs';
+//import Modals from '../components/ui/Modals';
+//import Notifications from '../components/ui/Notifications';
+//import Tabs from '../components/ui/Tabs';
 //import Banners from '../components/ui/banners';
 //import Drags from '../components/ui/Draggable';
 
@@ -24,22 +23,31 @@ import Tabs from '../components/ui/Tabs';
 //import AuthBasic from '../components/auth/Basic';
 //import RouterEnter from '../components/auth/RouterEnter';
 //import Wysiwyg from 'bundle-loader?lazy!../components/ui/Wysiwyg';  // 按需加载富文本配置
-import Bundle from '../components/widget/BundlePro';
-import asyncComponent from '../components/widget/BundlePro2';
+//import Bundle from '../components/widget/BundlePro';
+//import asyncComponent from '../components/widget/BundlePro2';
 //import Cssmodule from '../components/cssmodule';
 
 
-// 按需加载Button配置
-const ButtonsBundle = (props) => (
-    <Bundle load={() => import('../components/ui/Buttons')}>
-        {(ButtonsBundle) => <ButtonsBundle {...props} />}
-    </Bundle>
-);
+// 按需加载Button配置老方式
+// const ButtonsBundle = (props) => (
+//     <Bundle load={() => import('../components/ui/Buttons')}>
+//         {(ButtonsBundle) => <ButtonsBundle {...props} />}
+//     </Bundle>
+// );
 
-const ButtonsBundle2 = asyncComponent(() => import("../components/ui/Buttons"));
+// 按需加载Button配置新方式
+//const ButtonsBundle2 = asyncComponent(() => import("../components/ui/Buttons"));
+//const IconsBundle2 = asyncComponent(() => import("../components/ui/Icons"));
+
 
 // 按路由拆分代码
-
+//react-loadable
+/* package.json中
+   "plugins": [
+      ["import", [{"libraryName": "antd", "style": "css" }]],
+      ["syntax-dynamic-import"]
+    ]
+*/
 const MyLoadingComponent = ({ isLoading, error }) => {
     // Handle the loading state
     if (isLoading) {
@@ -63,17 +71,41 @@ const IconsBundle33 = Loadable({
     loading: MyLoadingComponent
 });
 
+const ModalsBundle33 = Loadable({
+    loader: () => import('../components/ui/Modals'),
+    loading: MyLoadingComponent
+});
 
-class ButtonsBundle3 extends React.Component {
-    render() {
-      return <ButtonsBundle33 />;
-    }
-}
-class IconsBundle extends React.Component {
-    render() {
-      return <IconsBundle33 />;
-    }
-}
+const Notifications = Loadable({
+    loader: () => import('../components/ui/Notifications'),
+    loading: MyLoadingComponent
+});
+
+const Tabs = Loadable({
+    loader: () => import('../components/ui/Tabs'),
+    loading: MyLoadingComponent
+});
+const BasicForm = Loadable({
+    loader: () => import('../components/forms/BasicForm'),
+    loading: MyLoadingComponent
+});
+
+const TestSize = Loadable({
+    loader: () => import('../components/ui/testsize'),
+    loading: MyLoadingComponent
+});
+
+
+// class ButtonsBundle3 extends React.Component {
+//     render() {
+//       return <ButtonsBundle33 />;
+//     }
+// }
+// class IconsBundle3 extends React.Component {
+//     render() {
+//       return <IconsBundle33 />;
+//     }
+// }
 
 
 export default class CRouter extends Component {
@@ -90,12 +122,13 @@ export default class CRouter extends Component {
             <Switch>
                 <Route exact path="/" component={BasicForm} />
                 <Route exact path="/app/form/basicForm" component={BasicForm} />
-                <Route exact path="/app/ui/icons" component={IconsBundle} />
-                <Route exact path="/app/ui/buttons" component={ButtonsBundle3} />
+                <Route exact path="/app/ui/icons" component={IconsBundle33} />
+                <Route exact path="/app/ui/buttons" component={ButtonsBundle33} />
                 {/* <Route exact path="/app/ui/spins" component={Spins} /> */}
-                <Route exact path="/app/ui/modals" component={Modals} />
+                <Route exact path="/app/ui/modals" component={ModalsBundle33} />
                 <Route exact path="/app/ui/notifications" component={Notifications} />
                 <Route exact path="/app/ui/tabs" component={Tabs} />
+                <Route exact path="/app/ui/testsize" component={TestSize} />
                 {/* <Route exact path="/app/ui/banners" component={Banners} /> */}
               
                 {/* <Route exact path="/app/ui/drags" component={Drags} /> */}

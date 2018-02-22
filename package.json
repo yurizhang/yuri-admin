@@ -55,15 +55,8 @@
       "react-app"
     ],
     "plugins": [
-      [
-        "import",
-        [
-          {
-            "libraryName": "antd",
-            "style": "css"
-          }
-        ]
-      ],["syntax-dynamic-import"]
+      ["import", [{"libraryName": "antd", "style": "css" }]],
+      ["syntax-dynamic-import"]
     ]
   },
   "eslintConfig": {
