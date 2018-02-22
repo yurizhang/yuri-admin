@@ -12,15 +12,38 @@ const SubMenu = Menu.SubMenu;
 class SiderDemo extends React.Component {
   state = {
     collapsed: false,
+    openKeys:[],
+    rootSubmenuKeys : []
   };
   onCollapse = (collapsed) => {
     console.log(collapsed);
     this.setState({ collapsed });
   }
-  onTrigg = () => {
-    
+  onTrigg = () => {    
     this.setState({ collapsed: !this.state.collapsed });
   }
+  //SubMenu 展开/关闭的回调
+  onOpenChange = (openKeys) => {
+    //console.log(openKeys);  //所有展开的菜单 
+    this.setState({ openKeys });
+     // submenu keys of first level
+    //const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
+    //最后一次展开的菜单
+    const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+    //console.log(latestOpenKey);
+    this.setState({
+      openKeys: latestOpenKey ? [latestOpenKey] : [],
+    });
+    // if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+    //   this.setState({ openKeys });
+    // } else {
+      // this.setState({
+      //   openKeys: latestOpenKey ? [latestOpenKey] : [],
+      // });
+    // }
+  }
+
+  //会员下面的菜单 
  menu = ()=>{return(
   <Menu>
     <Menu.Item>
@@ -95,7 +118,7 @@ const renderSubMenu =
         >
           <div className="logo" />
 
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu theme="dark" defaultSelectedKeys={['1']} openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} mode="inline">
 
           {menusList && menusList.map(item => item.sub && item.sub.length ?
             renderSubMenu(item) : renderMenuItem(item)

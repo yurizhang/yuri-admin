@@ -53,15 +53,28 @@ const MyLoadingComponent = ({ isLoading, error }) => {
         return null;
     }
 };
-const ButtonsBundle3 = Loadable({
+const ButtonsBundle33 = Loadable({
     loader: () => import('../components/ui/Buttons'),
     loading: MyLoadingComponent
 });
 
-const IconsBundle = Loadable({
+const IconsBundle33 = Loadable({
     loader: () => import('../components/ui/Icons'),
     loading: MyLoadingComponent
 });
+
+
+class ButtonsBundle3 extends React.Component {
+    render() {
+      return <ButtonsBundle33 />;
+    }
+}
+class IconsBundle extends React.Component {
+    render() {
+      return <IconsBundle33 />;
+    }
+}
+
 
 export default class CRouter extends Component {
     requireAuth = (permission, component) => {
