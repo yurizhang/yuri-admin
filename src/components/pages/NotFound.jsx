@@ -2,7 +2,7 @@
  * Created by Yuri Zhang 2017/5/7.
  */
 import React from 'react';
-import img from '../../style/imgs/404.png';
+//import img from '../../style/imgs/404.png';
 
 
 class NotFound extends React.Component {
@@ -15,7 +15,7 @@ class NotFound extends React.Component {
     render() {
         return (
             <div className="center" style={{height: '100%', background: '#ececec', overflow: 'hidden'}}>
-                <img src={img} alt="404" className={`animated swing ${this.state.animated}`} onMouseEnter={this.enter} />
+              正在开发中。。。
             </div>
         )
     }

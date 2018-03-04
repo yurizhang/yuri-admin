@@ -1,0 +1,167 @@
+body{
+  /*  字体 */
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+
+}
+.App {
+  /* text-align: center; */
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header{
+  background-color: #222;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+table.grid {
+  border-collapse: collapse;
+  width: 90%;
+  background-color: #fff;
+  color: #5e6d82;
+  font-size: 14px;
+  margin-bottom: 45px;
+  line-height: 1.5em;
+
+}
+
+table.grid th:first-child, table.grid td:first-child {
+  padding-left: 10px;
+}
+
+table.grid td, table.grid th {
+  border-bottom: 1px solid #eaeefb;
+  padding: 10px;
+  max-width: 250px;
+}
+
+/* 图标 */
+
+.icon-list {
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  border-radius: 4px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.icon-list li {
+  float: left;
+  width: 20%;
+  text-align: center;
+  height: 120px;
+  line-height: 120px;
+  color: #333;
+  font-size: 13px;
+  transition: color .15s linear;
+  border: 1px solid #eaeefb;
+  margin-right: -1px;
+  margin-bottom: -1px;
+}
+
+.icon-list li span {
+  display: inline-block;
+  line-height: normal;
+  vertical-align: middle;
+  font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',SimSun,sans-serif;
+  color: #99a9bf;
+}
+.icon-list li span i{
+  color:#333;
+  font-size: 20px;
+  width:100%;
+  padding:5px 0;
+  margin-bottom: 10px;
+}
+/* for Color.jsx */
+.bg-blue {
+    background-color: #409eff;
+}
+.bg-success{
+  background-color: #67c23a;
+}
+.bg-warning{
+  background-color: #e6a23c;
+}
+.bg-info{
+  background-color:#909399;
+}
+.bg-danger{
+  background-color: #f56c6c;
+}
+.bg-text-primary {
+    background-color: #303133;
+}
+.bg-text-regular {
+    background-color: #606266;
+}
+.bg-text-secondary {
+    background-color: #909399;
+}
+.bg-text-placeholder {
+    background-color: #c0c4cc;
+}
+.bg-border-base {
+    background-color: #dcdfe6;
+}
+.bg-border-light {
+    background-color: #e4e7ed;
+}
+.bg-border-lighter {
+    background-color: #ebeef5;
+}
+.bg-border-extra-light {
+    background-color: #f2f6fc;
+}
+.demo-color-box {
+    border-radius: 4px;
+    padding: 20px;
+    height: 74px;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 14px;
+    width: 90px;
+    display: inline-block;
+    margin-right: 20px;
+}
+.demo-color-box-vertical{
+    border-radius: 4px;
+    padding: 20px;
+    height: 74px;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 14px;
+    width: 200px;
+}
+.demo-color-box .value {
+    font-size: 12px;
+    opacity: .69;
+    line-height: 24px;
+}
+.demo-color-box-group .demo-color-box:first-child {
+    border-radius: 4px 4px 0 0;
+}
+.demo-color-box-group{
+  display: inline-block;
+  margin-right: 30px;
+}
+/* for Color.jsx */
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+/* 弹出窗口 */
+.dialog{
+  text-align: left;
+}

@@ -1,136 +1,99 @@
-/**
- * Created by Yuri Zhang 2017/4/23.
- */
-import React from 'react';
-import { Row, Col, Card, Button, Radio, Icon, Menu, Dropdown } from 'antd';
-import BreadcrumbCustom from '../BreadcrumbCustom';
+import React, { Component } from 'react';
+import '../test/App.css';
+//按需加载
+import Button from "../ishow/Button/Button";
+import ButtonGroup from "../ishow/Button/ButtonGroup";
+import Tabs from "../ishow/Tab/Tabs";
+import TabPane from "../ishow/Tab/TabPane";
+import Collapse from "../ishow/Collapse/Collapse";
+import CollapseItem from "../ishow/Collapse/CollapseItem";
+import Message from "../ishow/Message/Message";
 
-class Buttons extends React.Component {
-    state = {
-        size: 'default',
-        loading: false,
-        iconLoading: false,
-    };
+//import {Button,ButtonGroup,Tabs,TabPane,Collapse,CollapseItem,Message} from '../../components/ishow/index.js'; //一次性加载完
+import ViewCode from '../plugs/viewCode';
+import ParamTable from '../plugs/paramTable';
+Tabs.Pane = TabPane;
+Button.Group = ButtonGroup;
+Collapse.Item = CollapseItem;
+class App extends Component {
+  componentDidMount(){
+    //console.log(this.props);
+    this.props.changeBread(['首页','UI','按钮']);
+  }
 
-    handleSizeChange = (e) => {
-        this.setState({ size: e.target.value });
-    };
-    handleMenuClick = (e) => {
-        console.log('click', e);
-    };
-    enterLoading = () => {
-        this.setState({ loading: true });
-    };
-    enterIconLoading = () => {
-        this.setState({ iconLoading: true });
-    };
-    render() {
-        const size = this.state.size;
-        const menu = (
-            <Menu onClick={this.handleMenuClick}>
-                <Menu.Item key="1">1st item</Menu.Item>
-                <Menu.Item key="2">2nd item</Menu.Item>
-                <Menu.Item key="3">3rd item</Menu.Item>
-            </Menu>
-        );
-        return (
-            <div className="gutter-example button-demo">
-                <BreadcrumbCustom first="UI" second="按钮" />
-                <Row gutter={16}>
-                    <Col className="gutter-row" md={12}>
-                        <div className="gutter-box">
-                            <Card bordered={false}>
-                                <Button type="primary">Primary</Button>
-                                <Button>Default</Button>
-                                <Button type="dashed">Dashed</Button>
-                                <Button type="danger">Danger</Button>
-                            </Card>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" md={12}>
-                        <div className="gutter-box">
-                            <Card bordered={false}>
-                                <Button type="primary" shape="circle" icon="search" />
-                                <Button type="primary" icon="search">Search</Button>
-                                <Button shape="circle" icon="search" />
-                                <Button icon="search">Search</Button>
-                                <br />
-                                <Button shape="circle" icon="search" />
-                                <Button icon="search">Search</Button>
-                                <Button type="dashed" shape="circle" icon="search" />
-                                <Button type="dashed" icon="search">Search</Button>
-                            </Card>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" md={12}>
-                        <div className="gutter-box">
-                            <Card bordered={false}>
-                                <Radio.Group value={size} onChange={this.handleSizeChange}>
-                                    <Radio.Button value="large">Large</Radio.Button>
-                                    <Radio.Button value="default">Default</Radio.Button>
-                                    <Radio.Button value="small">Small</Radio.Button>
-                                </Radio.Group>
-                                <br /><br />
-                                <Button type="primary" shape="circle" icon="download" size={size} />
-                                <Button type="primary" icon="download" size={size}>Download</Button>
-                                <Button type="primary" size={size}>Normal</Button>
-                                <br />
-                                <Button.Group size={size}>
-                                    <Button type="primary">
-                                        <Icon type="left" />Backward
-                                    </Button>
-                                    <Button type="primary">
-                                        Forward<Icon type="right" />
-                                    </Button>
-                                </Button.Group>
-                            </Card>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" md={12}>
-                        <div className="gutter-box">
-                            <Card bordered={false}>
-                                <Button type="primary">primary</Button>
-                                <Button>secondary</Button>
-                                <Dropdown overlay={menu}>
-                                    <Button>
-                                        more <Icon type="down" />
-                                    </Button>
-                                </Dropdown>
-                            </Card>
-                        </div>
-                    </Col>
-                    <Col className="gutter-row" md={12}>
-                        <div className="gutter-box">
-                            <Card bordered={false}>
-                                <Button type="primary" loading>
-                                    Loading
-                                </Button>
-                                <Button type="primary" size="small" loading>
-                                    Loading
-                                </Button>
-                                <br />
-                                <Button type="primary" loading={this.state.loading} onClick={this.enterLoading}>
-                                    Click me!
-                                </Button>
-                                <Button type="primary" icon="poweroff" loading={this.state.iconLoading} onClick={this.enterIconLoading}>
-                                    Click me!
-                                </Button>
-                                <br />
-                                <Button shape="circle" loading />
-                                <Button type="primary" shape="circle" loading />
-                            </Card>
-                        </div>
-                    </Col>
-                </Row>
-                <style>{`
-                    .button-demo .ant-btn {
-                        margin-right: 8px;
-                        margin-bottom: 12px;
-                    }
-                `}</style>
-            </div>
-        )
-    }
+  //for button
+   clickme = () =>{
+      Message.warning("hello");
+      //编程式跳转
+      this.props.history.push('/app/ui/icons');
+  }  
+  render() {
+    //for Collapse
+    return (
+      <div className="App">
+        <h1>Button 按钮</h1>
+        <h3>常用的操作按钮</h3>
+        <div>
+          <Tabs type="card" value="1" style={{marginBottom:40}} >
+            <Tabs.Pane label="基础按钮" name="1">
+              <Button onClick={this.clickme.bind(this)}>普通按钮</Button>
+              <Button type="primary">主要按钮</Button>
+              <Button type="text">文字按钮</Button>
+              <ViewCode/>
+            </Tabs.Pane>
+            <Tabs.Pane label="禁用按钮" name="2">
+              <Button plain={true} disabled={true}>默认按钮</Button>
+              <Button type="primary" disabled={true}>主要按钮</Button>
+              <Button type="text" disabled={true}>文字按钮</Button>
+            </Tabs.Pane>
+            <Tabs.Pane label="加载中按钮" name="3">
+              <Button type="primary" loading={true}>加载中</Button>
+            </Tabs.Pane>
+            <Tabs.Pane label="有颜色的按钮" name="4">
+              <Button type="success">成功按钮</Button>
+              <Button type="warning">警告按钮</Button>
+              <Button type="danger">危险按钮</Button>
+              <Button type="info">信息按钮</Button>
+              <Button plain={true} type="success">成功按钮</Button>
+              <Button plain={true} type="warning">警告按钮</Button>
+              <Button plain={true} type="danger">危险按钮</Button>
+              <Button plain={true} type="info">信息按钮</Button>
+            </Tabs.Pane>
+            <Tabs.Pane label="图标按钮" name="5">
+              <Button type="primary" icon="edit"></Button>
+              <Button type="primary" icon="share"></Button>
+              <Button type="primary" icon="delete"></Button>
+              <Button type="primary" icon="search">搜索</Button>
+              <Button type="primary">上传<i className="ishow-icon-upload ishow-icon-right"></i></Button>
+            </Tabs.Pane>
+            <Tabs.Pane label="不同尺寸按钮" name="6">
+              <Button type="primary" size="large">大型按钮</Button>
+              <Button type="primary">正常按钮</Button>
+              <Button type="primary" size="small">小型按钮</Button>
+              <Button type="primary" size="mini">超小按钮</Button>
+            </Tabs.Pane>
+            <Tabs.Pane label="按钮组" name="7">
+              <Button.Group>
+                <Button type="primary" icon="arrow-left">上一页</Button>
+                <Button type="primary">下一页<i className="ishow-icon-arrow-right ishow-icon-right"></i></Button>
+              </Button.Group>
+              &nbsp;&nbsp;&nbsp;
+              <Button.Group>
+                <Button type="primary" icon="edit"></Button>
+                <Button type="primary" icon="share"></Button>
+                <Button type="primary" icon="delete"></Button>
+              </Button.Group>
+            </Tabs.Pane>
+          </Tabs>
+        </div>
+        <div>
+
+        </div>
+
+        <ParamTable/>
+      </div>
+    );
+  }
 }
 
-export default Buttons;
+export default App;

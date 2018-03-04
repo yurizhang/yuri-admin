@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 // import { Router, Route, hashHistory, IndexRedirect } from 'react-router';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
+import notFound from '../components/pages/NotFound.jsx'
 
 //import BasicForm from '../components/forms/BasicForm';
 
@@ -71,6 +72,14 @@ const IconsBundle33 = Loadable({
     loading: MyLoadingComponent
 });
 
+const ColorBundle33 = Loadable({
+    loader:()=> import('../components/ui/Colors'),
+    loading:MyLoadingComponent
+});
+const FormEleBundle33 = Loadable({
+    loader:()=> import('../components/ui/FormElement'),
+    loading:MyLoadingComponent
+});
 const ModalsBundle33 = Loadable({
     loader: () => import('../components/ui/Modals'),
     loading: MyLoadingComponent
@@ -117,31 +126,38 @@ export default class CRouter extends Component {
         return component;
     };
     render() {
+        //let changeBread=this.props.changeBread; 这个从admin.jsx传来
+        //console.log("CRouter");
+        //console.log(changeBread);
+        //可以把任意的组件渲染到这里来，withRouter（组件名）一下就可以。如果不使用withRouter，那组件必须包括在hashRouter或是borwserouter里面
         return (
-            
+
             <Switch>
                 <Route exact path="/" component={BasicForm} />
                 <Route exact path="/app/form/basicForm" component={BasicForm} />
-                <Route exact path="/app/ui/icons" component={IconsBundle33} />
-                <Route exact path="/app/ui/buttons" component={ButtonsBundle33} />
+                <Route exact path="/app/ui/colors" component={ColorBundle33} />
+                <Route exact path="/app/form/formElements" render={(props)=> <FormEleBundle33 changeBread={this.props.changeBread} {...props} />} />
+                <Route exact path="/app/ui/icons" render={(props)=>  <IconsBundle33 changeBread={this.props.changeBread} {...props} />} />
+                <Route exact path="/app/ui/buttons" render={(props)=>  <ButtonsBundle33 changeBread={this.props.changeBread} {...props} />} />
+                {/* 这个从admin.jsx传来，注意这里是render */}
                 {/* <Route exact path="/app/ui/spins" component={Spins} /> */}
                 <Route exact path="/app/ui/modals" component={ModalsBundle33} />
                 <Route exact path="/app/ui/notifications" component={Notifications} />
                 <Route exact path="/app/ui/tabs" component={Tabs} />
                 <Route exact path="/app/ui/testsize" component={TestSize} />
                 {/* <Route exact path="/app/ui/banners" component={Banners} /> */}
-              
+
                 {/* <Route exact path="/app/ui/drags" component={Drags} /> */}
                 {/* <Route exact path="/app/ui/gallery" component={Gallery} /> */}
 
-            
+
 
                 {/* <Route exact path="/app/auth/basic" component={AuthBasic} />
                 <Route exact path="/app/auth/routerEnter" component={(props) => this.requireAuth('auth/testPage', <RouterEnter {...props} />)} />
 
                 <Route exact path="/app/cssModule" component={Cssmodule} /> */}
+                  <Route exact path="/404" component={notFound} />
 
-               
 
                 <Route render={() => <Redirect to="/404" />} />
             </Switch>

@@ -3,36 +3,45 @@ import React from "react"
 import { HashRouter as Router, Link } from "react-router-dom";
 import { Layout, Menu, Breadcrumb, Icon, Dropdown, Row, Col } from 'antd';
 import './admim.css';
-import { menus as menusList } from '../../constants/menuslist';  // 菜单数据 
+import { menus as menusList } from '../../constants/menuslist';  // 菜单数据
 import Crouter from "../../routes/index";  //路由数据
 
 const { Header, Content, Footer, Sider } = Layout;
 //const SubMenu = Menu.SubMenu;
 
 class SiderDemo extends React.Component {
-  state = {
-    collapsed: false,
-    openKeys:[],
-    rootSubmenuKeys : []
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapsed: false,
+      openKeys:[],
+      rootSubmenuKeys : [],
+      Breadcrumb:['首页','控制台'],
+    };
+
+  }
+
+
+
   onCollapse = (collapsed) => {
-    console.log(collapsed);
+    //console.log(collapsed);
     this.setState({ collapsed });
   }
-  onTrigg = () => {    
+  onTrigg = () => {
     this.setState({ collapsed: !this.state.collapsed });
   }
   //SubMenu 展开/关闭的回调
   onOpenChange = (openKeys) => {
-    //console.log(openKeys);  //所有展开的菜单 
-    this.setState({ openKeys });
+    //console.log(openKeys);  //所有展开的菜单
+    //this.setState({ openKeys });
      // submenu keys of first level
     //const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
     //最后一次展开的菜单
-    const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+    const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);  //用户点子菜单标题事件
     //console.log(latestOpenKey);
     this.setState({
-      openKeys: latestOpenKey ? [latestOpenKey] : [],
+      openKeys: latestOpenKey ? [latestOpenKey] : [],  //只把最后一个打开，其它的都关掉
     });
     // if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
     //   this.setState({ openKeys });
@@ -42,18 +51,42 @@ class SiderDemo extends React.Component {
       // });
     // }
   }
+  onClickItem=({ item, key, keyPath })=>{   //用户点菜单项目事件
+    let obj={ item, key, keyPath }  
+    //key=   这里的key: '/app/ui', title: 'UI', icon: 'scan', key就是路由`
+    //keyPath=如果子菜单里面这个数据会超过2，否则就是1 返回 ["/app/ui/buttons", "/app/ui"]
+    //console.log( obj )
+    //在这里调用面包应该更优雅
+    // this.changeBread([''])  //根据key来得到对应的面包
 
-  //会员下面的菜单 
+    if(obj.keyPath && obj.keyPath.length<2){  //如果点击的是不是子菜单项目，就关闭所有子菜单。
+      this.setState({
+        openKeys:  []  //关闭所有打开的子菜单 
+      });
+    }
+  }
+
+ changeBread = (newBread)=>{
+     //console.log("修改Breadcrumb");
+      //return b;
+      //定义这个组件用来修改面包，先转给路由，最后传给icon，button等
+      this.setState({
+        Breadcrumb:newBread
+      });
+
+ }
+
+  //会员下面的菜单
  menu = ()=>{return(
   <Menu>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.tuniu.com/">1st menu item</a>
     </Menu.Item>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.tuniu.com/">2nd menu item</a>
     </Menu.Item>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">3rd menu item</a>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.tuniu.com/">3rd menu item</a>
     </Menu.Item>
   </Menu>
 )};
@@ -110,15 +143,15 @@ const renderSubMenu =
     return (
         <Router>
       <Layout style={{ minHeight: '100vh' }} id="components-layout-demo-custom-trigger">
-        <Sider           
-          breakpoint="lg"          
+        <Sider
+          breakpoint="lg"
           collapsible
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
         >
           <div className="logo" />
 
-          <Menu theme="dark" defaultSelectedKeys={['1']} openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} mode="inline">
+          <Menu theme="dark" defaultSelectedKeys={['1']} openKeys={this.state.openKeys} onOpenChange={this.onOpenChange}  onClick={this.onClickItem} mode="inline">
 
           {menusList && menusList.map(item => item.sub && item.sub.length ?
             renderSubMenu(item) : renderMenuItem(item)
@@ -142,7 +175,7 @@ const renderSubMenu =
               <Menu.Item key="4">Bill</Menu.Item>
               <Menu.Item key="5">Alex</Menu.Item>
             </SubMenu>
-            
+
             <SubMenu
               key="sub2"
               title={<span><Icon type="team" /><span>Team</span></span>}
@@ -174,27 +207,25 @@ const renderSubMenu =
                 </Col>
             </Row>
 
-                
-                
- 
-          
           </Header>
           <Content style={{ margin: '0 16px' }}>
 
 
             <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                {this.state.Breadcrumb.map((e,i)=>(
+                    <Breadcrumb.Item key={i}>{e}</Breadcrumb.Item>
+                ))}
+
             </Breadcrumb>
 
-   
+
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-              路由渲染到这里
-              <Crouter></Crouter>
+              {/* 把修改面包的函数传下去 */}
+              <Crouter changeBread={this.changeBread}></Crouter>
 
              {/*
               {routes.map((route, index) => (
-         
+
                 <Route
                     key={index}
                     path={route.path}
@@ -208,7 +239,7 @@ const renderSubMenu =
 
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©2018 Created by Yuri
+            TUNIU Design ©2018 Created by <a href="http://wiki.tuniu.org/display/SRDC/2.Tuniu+Backend+System+UI+Standard+2.0"  rel="noopener noreferrer" target="_blank">ElfTeam</a>
           </Footer>
         </Layout>
       </Layout>
